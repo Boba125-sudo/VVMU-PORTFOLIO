@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import logo from "../assets/logo.png";
 
 type User = {
   id: number;
@@ -30,11 +31,10 @@ export default function Navbar() {
     <nav style={styles.navbar}>
       <div style={styles.inner}>
         <Link to="/" style={styles.logo}>
-          CreativePortfolio
+          <img src={logo} alt="Vision Board logo" style={styles.logoImage} />
         </Link>
 
         <div style={styles.links}>
-
           {user ? (
             <>
               <Link to="/projects/create" style={styles.link}>
@@ -45,9 +45,7 @@ export default function Navbar() {
                 Dashboard
               </Link>
 
-              <span style={styles.userInfo}>
-                Welcome, {user.name}
-              </span>
+              <span style={styles.userInfo}>Welcome, {user.name}</span>
 
               <button onClick={handleLogout} style={styles.logoutButton}>
                 Изход
@@ -77,7 +75,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     backgroundColor: "white",
     position: "sticky",
     top: 0,
-    zIndex: 50
+    zIndex: 50,
   },
   inner: {
     maxWidth: "1200px",
@@ -86,33 +84,33 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    gap: "20px"
+    gap: "20px",
   },
-  logo: {
-    fontSize: "22px",
-    fontWeight: 800,
-    color: "#111827",
-    textDecoration: "none"
+  logoImage: {
+    width: "42px",
+    height: "42px",
+    borderRadius: "12px",
+    objectFit: "cover",
   },
   links: {
     display: "flex",
     alignItems: "center",
     gap: "14px",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   link: {
     color: "#374151",
     textDecoration: "none",
-    fontWeight: 600
+    fontWeight: 600,
   },
   userInfo: {
     color: "#2563eb",
-    fontWeight: 700
+    fontWeight: 700,
   },
   loginButton: {
     color: "#2563eb",
     textDecoration: "none",
-    fontWeight: 700
+    fontWeight: 700,
   },
   registerButton: {
     backgroundColor: "#2563eb",
@@ -120,7 +118,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "10px 14px",
     borderRadius: "10px",
     textDecoration: "none",
-    fontWeight: 700
+    fontWeight: 700,
   },
   logoutButton: {
     border: "none",
@@ -129,6 +127,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "10px 14px",
     borderRadius: "10px",
     cursor: "pointer",
-    fontWeight: 700
-  }
+    fontWeight: 700,
+  },
 };

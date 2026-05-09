@@ -14,3 +14,15 @@ export const updateMe = async (req: Request, res: Response) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+export const getPublicUserProfile = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+
+    const user = await userService.getPublicUserProfile(id);
+
+    res.json(user);
+  } catch (error: any) {
+    res.status(404).json({ message: error.message });
+  }
+};

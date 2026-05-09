@@ -26,21 +26,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [likes, setLikes] = useState<{ [projectId: number]: number }>({});
 
-  // useEffect(() => {
-  //   async function fetchProjects() {
-  //     try {
-  //       const response = await api.get("/projects");
-  //       setProjects(response.data);
-  //     } catch (error) {
-  //       console.error("Error loading projects:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-
-  //   fetchProjects();
-  // }, []);
-
   useEffect(() => {
     async function fetchProjects() {
       try {
@@ -91,7 +76,7 @@ export default function Home() {
     <main style={styles.container}>
       <section style={styles.hero}>
         <div>
-          <p style={styles.badge}>Creative Portfolio Platform</p>
+          <p style={styles.badge}>VisionBoard</p>
           <h1 style={styles.title}>Открий творчески проекти и портфолиа</h1>
           <p style={styles.subtitle}>
             Платформа за дизайнери, фотографи, илюстратори и уеб разработчици,
@@ -102,7 +87,7 @@ export default function Home() {
 
       <section style={styles.sectionHeader}>
         <h2 style={styles.sectionTitle}>Последни проекти</h2>
-        <p style={styles.sectionText}>Общо проекти: {projects.length}</p>
+        <p style={styles.sectionText}>Всички проекти: {projects.length}</p>
       </section>
 
       {projects.length === 0 ? (
@@ -110,7 +95,7 @@ export default function Home() {
       ) : (
         <section style={styles.grid}>
           {projects.map((project) => (
-            <article key={project.id} style={styles.card}>
+            <Link className="card" to={`/projects/${project.id}`} key={project.id} style={styles.card}>
               <div style={styles.imageWrapper}>
                 {project.imageUrl ? (
                   <img
@@ -129,9 +114,7 @@ export default function Home() {
                   <span style={styles.likes}>♥ {likes[project.id] ?? 0}</span>
                 </div>
 
-                <Link to={`/projects/${project.id}`} style={styles.projectLink}>
                   <h3 style={styles.cardTitle}>{project.title}</h3>
-                </Link>
 
                 <p style={styles.description}>{project.description}</p>
 
@@ -145,7 +128,7 @@ export default function Home() {
                   <span>By {project.user.name}</span>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </section>
       )}
@@ -165,7 +148,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: "inherit",
   },
   hero: {
-    background: "linear-gradient(135deg, #111827, #1f2937)",
+    background: "linear-gradient(45deg, rgb(21 42 205), rgb(164 49 216))",
     color: "white",
     padding: "60px 40px",
     borderRadius: "24px",
@@ -177,12 +160,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "8px 14px",
     borderRadius: "999px",
     fontSize: "14px",
+    fontWeight: "600",
     marginBottom: "16px",
   },
   title: {
     fontSize: "42px",
     lineHeight: "1.1",
     margin: "0 0 16px",
+    color: "#d1d5db"
   },
   subtitle: {
     fontSize: "18px",
@@ -215,11 +200,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     gap: "24px",
   },
   card: {
-    border: "1px solid #e5e7eb",
     borderRadius: "20px",
     overflow: "hidden",
     backgroundColor: "white",
-    boxShadow: "0 10px 25px rgba(0,0,0,0.06)",
   },
   imageWrapper: {
     height: "190px",

@@ -222,7 +222,7 @@ export default function Dashboard() {
         </article>
 
         <article style={styles.profilePreview}>
-          <h2 style={styles.cardTitle}>Преглед</h2>
+          <h2 className="dashboard-title" style={styles.cardTitle}>Преглед</h2>
 
           <div style={styles.avatarBox}>
             {avatarUrl ? (
@@ -330,7 +330,9 @@ const styles: { [key: string]: React.CSSProperties } = {
   headerActions: {
   display: "flex",
   gap: "12px",
-  flexWrap: "wrap"
+  flexWrap: "wrap",
+  marginLeft: "12px",
+
 },
   primaryLinkButton: {
   backgroundColor: "#2563eb",
@@ -384,7 +386,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     boxShadow: "0 10px 25px rgba(0,0,0,0.06)",
   },
   profilePreview: {
-    backgroundColor: "#111827",
+    background: "linear-gradient(45deg, rgb(21, 42, 205), rgb(164, 49, 216))",
     color: "white",
     borderRadius: "24px",
     padding: "28px",
@@ -426,17 +428,17 @@ const styles: { [key: string]: React.CSSProperties } = {
     backgroundColor: "#2563eb",
     color: "white",
     border: "none",
-    padding: "14px",
-    borderRadius: "12px",
+    padding: "12px",
+    borderRadius: "10px",
     cursor: "pointer",
     fontWeight: 700,
-    fontSize: "16px",
+    fontSize: "14px",
   },
   secondaryButton: {
     backgroundColor: "white",
     color: "#2563eb",
     border: "1px solid #bfdbfe",
-    padding: "12px 16px",
+    padding: "8px 10px",
     borderRadius: "12px",
     textDecoration: "none",
     fontWeight: 700,

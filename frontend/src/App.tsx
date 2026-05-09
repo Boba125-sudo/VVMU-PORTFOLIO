@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import CreateProject from "./pages/CreateProject";
 import EditProject from "./pages/EditProject";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/projects/create" element={<CreateProject />} />
         <Route path="/projects/:id/edit" element={<EditProject />} />
+        <Route path="/users/:id" element={<UserProfile />} />
       </Routes>
     </BrowserRouter>
   );

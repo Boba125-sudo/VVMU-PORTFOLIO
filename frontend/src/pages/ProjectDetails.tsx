@@ -183,10 +183,12 @@ export default function ProjectDetails() {
 
           <div style={styles.authorBox}>
             <h3 style={styles.infoTitle}>Автор</h3>
-            <p style={styles.authorName}>{project.user.name}</p>
-            {project.user.bio && (
+            <Link to={`/users/${project.user.id}`} style={styles.authorLink}>
+              {project.user.name}
+            </Link>
+            {/* {project.user.bio && (
               <p style={styles.infoText}>{project.user.bio}</p>
-            )}
+            )} */}
           </div>
 
           <div style={styles.actions}>
@@ -316,13 +318,19 @@ const styles: { [key: string]: React.CSSProperties } = {
     marginBottom: "16px",
   },
   authorBox: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "12px",
+    alignItems: "center",
+    justifyContent: "center",
     padding: "18px",
     borderRadius: "16px",
     backgroundColor: "#f9fafb",
     marginBottom: "22px",
   },
   infoTitle: {
-    margin: "0 0 8px",
+    display: "inlineBlock",
+    margin: "0 0 0",
     fontSize: "16px",
     color: "#111827",
   },
@@ -336,6 +344,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: "#111827",
     fontWeight: 700,
   },
+
+  authorLink: {
+    display: "inline-block",
+    color: "#2563eb",
+    fontWeight: 800,
+    textDecoration: "none",
+  },
+
   actions: {
     display: "flex",
     gap: "12px",
