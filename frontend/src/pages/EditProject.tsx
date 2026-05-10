@@ -91,13 +91,13 @@ export default function EditProject() {
           description,
           imageUrl,
           toolsUsed,
-          categoryId: Number(categoryId)
+          categoryId: Number(categoryId),
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
 
       navigate(`/projects/${id}`);
@@ -105,10 +105,43 @@ export default function EditProject() {
       console.error(error);
       setError(
         error.response?.data?.message ||
-          "Неуспешна редакция. Можеш да редактираш само свои проекти."
+          "Неуспешна редакция. Можеш да редактираш само свои проекти.",
       );
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function handleDelete() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      "Сигурен ли си, че искаш да изтриеш този проект?",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await api.delete(`/projects/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      navigate("/dashboard");
+    } catch (error: any) {
+      console.error(error);
+      setError(
+        error.response?.data?.message ||
+          "Неуспешно изтриване. Можеш да изтриеш само свои проекти.",
+      );
     }
   }
 
@@ -131,7 +164,8 @@ export default function EditProject() {
           <p style={styles.badge}>Edit Project</p>
           <h1 style={styles.title}>Редактирай проект</h1>
           <p style={styles.subtitle}>
-            Промени заглавието, описанието, категорията, изображението или използваните инструменти.
+            Промени заглавието, описанието, категорията, изображението или
+            използваните инструменти.
           </p>
         </div>
 
@@ -200,6 +234,13 @@ export default function EditProject() {
           <button type="submit" disabled={saving} style={styles.button}>
             {saving ? "Запазване..." : "Запази промените"}
           </button>
+          <button
+            type="button"
+            onClick={handleDelete}
+            style={styles.deleteButton}
+          >
+            Изтрий проекта
+          </button>
         </form>
       </section>
     </main>
@@ -211,24 +252,24 @@ const styles: { [key: string]: React.CSSProperties } = {
     maxWidth: "820px",
     margin: "0 auto",
     padding: "40px 20px",
-    fontFamily: "Arial, sans-serif"
+    fontFamily: "Arial, sans-serif",
   },
   backLink: {
     display: "inline-block",
     marginBottom: "24px",
     color: "#2563eb",
     textDecoration: "none",
-    fontWeight: 700
+    fontWeight: 700,
   },
   card: {
     backgroundColor: "white",
     border: "1px solid #e5e7eb",
     borderRadius: "24px",
     padding: "34px",
-    boxShadow: "0 15px 35px rgba(0,0,0,0.08)"
+    boxShadow: "0 15px 35px rgba(0,0,0,0.08)",
   },
   header: {
-    marginBottom: "26px"
+    marginBottom: "26px",
   },
   badge: {
     display: "inline-block",
@@ -238,38 +279,38 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: "999px",
     fontSize: "13px",
     fontWeight: 700,
-    marginBottom: "14px"
+    marginBottom: "14px",
   },
   title: {
     margin: "0 0 10px",
     fontSize: "36px",
-    color: "#111827"
+    color: "#111827",
   },
   subtitle: {
     margin: 0,
     color: "#6b7280",
-    lineHeight: "1.6"
+    lineHeight: "1.6",
   },
   form: {
     display: "flex",
     flexDirection: "column",
-    gap: "16px"
+    gap: "16px",
   },
   field: {
     display: "flex",
     flexDirection: "column",
-    gap: "8px"
+    gap: "8px",
   },
   label: {
     fontWeight: 700,
-    color: "#374151"
+    color: "#374151",
   },
   input: {
     padding: "13px 14px",
     borderRadius: "12px",
     border: "1px solid #d1d5db",
     fontSize: "15px",
-    outline: "none"
+    outline: "none",
   },
   textarea: {
     padding: "13px 14px",
@@ -278,7 +319,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: "15px",
     minHeight: "140px",
     resize: "vertical",
-    outline: "none"
+    outline: "none",
   },
   button: {
     marginTop: "8px",
@@ -289,14 +330,27 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: "12px",
     cursor: "pointer",
     fontWeight: 700,
-    fontSize: "16px"
+    fontSize: "16px",
   },
+
+  deleteButton: {
+    marginTop: "8px",
+    border: "none",
+    backgroundColor: "#dc2626",
+    color: "white",
+    padding: "14px",
+    borderRadius: "12px",
+    cursor: "pointer",
+    fontWeight: 700,
+    fontSize: "16px",
+  },
+
   error: {
     backgroundColor: "#fee2e2",
     color: "#991b1b",
     padding: "12px",
     borderRadius: "12px",
     marginBottom: "18px",
-    fontWeight: 700
-  }
+    fontWeight: 700,
+  },
 };
